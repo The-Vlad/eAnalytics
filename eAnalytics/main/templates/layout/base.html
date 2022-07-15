@@ -1,0 +1,58 @@
+{% load bootstrap5 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %}Главная{% endblock %} - Аналитический сайт</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+    {% bootstrap_javascript jquery='slim' %} 
+</head>
+<body class="container-fluid">
+    <header class="mb-4">
+        <h1 class=""display-1 text-center">Публикации</h1>
+    </header>
+    <div class="row">
+        <ul class="col nav justify-content-end border">
+            <li class="nav-item"><a class="nav-link" href="#">Регистрация</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                href="#" role="button" aria-haspopup="true"
+                aria-expanded="false">Профиль</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Мои публикации</a>
+                    <a class="dropdown-item" href="#">Настройки профиля</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Выйти</a>
+                </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Вход</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <nav class="col-md-auto nav flex-column border">
+            <a class="nav-link root" href="{% url 'main:index' %}">Главная</a>
+            <span class="nav-link root font-weight-bold">Категория 1</span>
+            <a class="nav-link" href="#">Подкатегория 1</a>
+            <a class="nav-link" href="#">Подкатегория 2</a>
+            <a class="nav-link" href="#">Подкатегория 3</a>
+            <span class="nav-link root font-weight-bold" href="#">Категория 2</span>
+            <a class="nav-link" href="#">Подкатегория 1</a>
+            <a class="nav-link" href="#">Подкатегория 2</a>
+            <a class="nav-link" href="#">Подкатегория 3</a>
+        </nav>
+        <section class="col border py-2">
+            {% bootstrap_messages %} 
+            {% block content %} 
+            {% endblock %} 
+        </section>
+    </div>
+    <footer class="mt-3">
+        <p class="test-right font-italic">&copy; читатели.</p>
+    </footer>
+</body>
+</html>
