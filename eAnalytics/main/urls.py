@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.urls import path
 
-from . import views
+from . import views as view
 
 app_name = "main"
 urlpatterns = [
-    path('', views.index, name="index"),     # name="" is used for jinja
-    
+    path('', view.index, name="index"),     # name="" is used for jinja
+    path('<str:page>/', view.other_page, name='other'),
+    path('accounts/login/', view.EALoginView.as_view(), name='login'),
+    path('accounts/profile/', view.profile, name='profile'),
 ]

@@ -1,4 +1,4 @@
-{% load bootstrap5 %}
+{% load bootstrap4 %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -14,23 +14,26 @@
 </head>
 <body class="container-fluid">
     <header class="mb-4">
-        <h1 class=""display-1 text-center">Публикации</h1>
+        <h1 class="display-1 text-center">{% block header %}eAnalytics{% endblock %}</h1>
     </header>
     <div class="row">
         <ul class="col nav justify-content-end border">
-            <li class="nav-item"><a class="nav-link" href="#">Регистрация</a></li>
+            {% if user.is_authenticated %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown"
                 href="#" role="button" aria-haspopup="true"
                 aria-expanded="false">Профиль</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Мои публикации</a>
+                    <a class="dropdown-item" href="{% url 'main:profile' %}">Мои публикации</a>
                     <a class="dropdown-item" href="#">Настройки профиля</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Выйти</a>
                 </div>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#">Вход</a></li>
+            {% else %}
+            <li class="nav-item"><a class="nav-link" href="#">Регистрация</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'main:login' %}">Вход</a></li>
+            {% endif %}
         </ul>
     </div>
     <div class="row">
@@ -44,6 +47,7 @@
             <a class="nav-link" href="#">Подкатегория 1</a>
             <a class="nav-link" href="#">Подкатегория 2</a>
             <a class="nav-link" href="#">Подкатегория 3</a>
+            <a class="nav-link root" href="{% url 'main:other' page='about' %}">О сайте</a>
         </nav>
         <section class="col border py-2">
             {% bootstrap_messages %} 
