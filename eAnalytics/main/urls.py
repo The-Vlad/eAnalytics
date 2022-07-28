@@ -23,4 +23,11 @@ urlpatterns = [
     path('<str:page>/', view.other_page, name='other'),
     path('accounts/login/', view.EALoginView.as_view(), name='login'),
     path('accounts/profile/', view.profile, name='profile'),
+    path('accounts/logout/', view.EALogoutView.as_view(), name='logout'),
+    path('accounts/profile/change/', view.ChangeUserInfoView.as_view(), name='profile_change'),
+    path('accounts/password/change/', view.EAPasswordChangeView.as_view(), name='password_change'),
+    path('accounts/register/done/', view.RegisterDoneView.as_view(), name='register_done'),
+    path('accounts/register/', view.RegisterUserView.as_view(), name='register'),
+    path('accounts/register/activate/<str:sign>/', view.user_activate, name='register_activate'),
+    path('accounts/profile/delete/', view.DeleteUserView.as_view(), name='profile_delete'),
 ]

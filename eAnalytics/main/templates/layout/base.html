@@ -24,14 +24,14 @@
                 href="#" role="button" aria-haspopup="true"
                 aria-expanded="false">Профиль</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{% url 'main:profile' %}">Мои публикации</a>
-                    <a class="dropdown-item" href="#">Настройки профиля</a>
+                    <a class="dropdown-item" href="#">Мои уведомления</a>
+                    <a class="dropdown-item" href="{% url 'main:profile_change' %}">Настройки профиля</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Выйти</a>
+                    <a class="dropdown-item" href="{% url 'main:logout' %}">Выйти</a>
                 </div>
             </li>
             {% else %}
-            <li class="nav-item"><a class="nav-link" href="#">Регистрация</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'main:register' %}">Регистрация</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'main:login' %}">Вход</a></li>
             {% endif %}
         </ul>
@@ -39,10 +39,12 @@
     <div class="row">
         <nav class="col-md-auto nav flex-column border">
             <a class="nav-link root" href="{% url 'main:index' %}">Главная</a>
-            <span class="nav-link root font-weight-bold">Категория 1</span>
-            <a class="nav-link" href="#">Подкатегория 1</a>
-            <a class="nav-link" href="#">Подкатегория 2</a>
-            <a class="nav-link" href="#">Подкатегория 3</a>
+            <span class="nav-link root font-weight-bold">Инструменты</span>
+            <a class="nav-link" href="#">Подключения (в разработке)</a>
+            <a class="nav-link" href="#">Датасеты</a>
+            <a class="nav-link" href="#">Чарты</a>
+            <a class="nav-link" href="#">Дашборды</a>            
+            <a class="nav-link" href="{% url 'main:profile' %}">Мои публикации</a>
             <span class="nav-link root font-weight-bold" href="#">Категория 2</span>
             <a class="nav-link" href="#">Подкатегория 1</a>
             <a class="nav-link" href="#">Подкатегория 2</a>
