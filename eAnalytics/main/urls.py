@@ -20,7 +20,6 @@ from . import views as view
 app_name = "main"
 urlpatterns = [
     path('', view.index, name="index"),     # name="" is used for jinja
-    path('<str:page>/', view.other_page, name='other'),
     path('accounts/login/', view.EALoginView.as_view(), name='login'),
     path('accounts/profile/', view.profile, name='profile'),
     path('accounts/logout/', view.EALogoutView.as_view(), name='logout'),
@@ -30,4 +29,7 @@ urlpatterns = [
     path('accounts/register/', view.RegisterUserView.as_view(), name='register'),
     path('accounts/register/activate/<str:sign>/', view.user_activate, name='register_activate'),
     path('accounts/profile/delete/', view.DeleteUserView.as_view(), name='profile_delete'),
+    path('tools/csv-connection/csv-upload-success/', view.csv_upload),
+    path('tools/<str:tool>/', view.tools_page, name='tools'),
+    path('<str:page>/', view.other_page, name='other'),
 ]

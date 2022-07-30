@@ -1,6 +1,6 @@
 from tempfile import tempdir
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, JsonResponse
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic.base import TemplateView
 from django.template import TemplateDoesNotExist
@@ -14,7 +14,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.core.signing import BadSignature
 
-from .models import AdvUser
+from . import models as model
 from .forms import ChangeUserInfoForm, RegisterUserForm
 from .utilities import signer
 
@@ -41,7 +41,7 @@ class EALogoutView(LoginRequiredMixin, LogoutView):
 
 class ChangeUserInfoView(SuccessMessageMixin,
     LoginRequiredMixin, UpdateView):
-    model = AdvUser
+    model = model.AdvUser
     template_name = 'main/change_user_info.html'
     form_class = ChangeUserInfoForm
     success_url = reverse_lazy('main:profile')
@@ -63,7 +63,7 @@ class EAPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin,
     success_message = 'Пароль пользователя изменен'
 
 class RegisterUserView(CreateView):
-    model = AdvUser
+    model = model.AdvUser
     template_name = 'main/register_user.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('main:register_done')
@@ -76,7 +76,7 @@ def user_activate(request, sign):
         username = signer.unsign(sign)
     except BadSignature:
         return render(request, 'main/bad_signature.html')
-    user = get_object_or_404(AdvUser, username=username)
+    user = get_object_or_404(model.AdvUser, username=username)
     if user.is_activated:
         template = 'main/user_is_activated.html'
     else:
@@ -87,7 +87,7 @@ def user_activate(request, sign):
     return render(request, template)
 
 class DeleteUserView(LoginRequiredMixin, DeleteView):
-    model = AdvUser
+    model = model.AdvUser
     template_name = 'main/delete_user.html'
     success_url = reverse_lazy('main:index')
 
@@ -104,3 +104,24 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         if not queryset:
             queryset = self.get_queryset()
         return get_object_or_404(queryset, pk=self.user_id)
+
+@login_required
+def tools_page(request, tool):
+    context = {}
+    try:
+        template = get_template('main/tools/' + tool + '.html')
+        if tool == 'connections':
+            context['connections'] = [model.Connection.objects.all(), model.CSV_File.objects.all()]
+            print(context)
+    except TemplateDoesNotExist:
+        raise Http404
+    return HttpResponse(template.render(context=context,request=request))
+
+@login_required
+def csv_upload(request):
+    if request.method == 'POST':
+        my_file=request.FILES.get('file')
+        model.Connection.objects.create(user_id=request.user, name=str(my_file), connection_type='CSV')
+        model.CSV_File.objects.create(file=my_file, connection_id=model.Connection.objects.latest('pk'))
+        return HttpResponse('')
+    return JsonResponse({'post':'false'})

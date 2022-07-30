@@ -50,3 +50,4 @@ class AdvUserAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(model.AdvUser, AdvUserAdmin)
+admin.site.register([model.Connection, model.CSV_File])

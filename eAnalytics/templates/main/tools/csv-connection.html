@@ -1,0 +1,24 @@
+{% extends "layout/base.html" %}
+
+{% load bootstrap4 %} 
+
+{% block title %}Подключение csv файла{% endblock %}
+
+{% block head %}
+<!-- Dropzone js & css -->
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<h2>Подключение csv файла</h2>
+<p>Выберите файл для подключения</p>
+<h4>Перетащите файл в данную область</h4>
+
+<form action="csv-upload-success/" method="POST" class="dropzone" id="csv-file-dropzone">
+    {% csrf_token %}
+    <input name="file" type="file" multiple />
+</form><br>
+
+<button type="submit" id="upload-button" class="btn btn-primary">Загрузить (не работает)</button>
+{% endblock %}

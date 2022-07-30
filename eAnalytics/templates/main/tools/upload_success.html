@@ -1,0 +1,8 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Загрузка завершена{% endblock %}
+
+{% block content %}
+<h2>Файл успешно загружен</h2>
+<a href="{% url 'main:tools', tool='connections' %}">Вернуться на страницу управления подключениями</a>
+{% endblock %}

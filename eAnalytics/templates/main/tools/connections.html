@@ -1,0 +1,19 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Подключения{% endblock %}
+
+{% block content %}
+<h2>Управление подключениями</h2>
+{% if user.first_name %}
+<p>{{ user.first_name }}, пожалуйста выберите способ подключения к данным.</p>
+{% else %} 
+<p>Пожалуйста выберите способ подключения к данным.</p>
+{% endif %}
+<h4>Способы подключения</h4>
+<a href="{% url 'main:tools' tool='csv-connection' %}">Подключить csv файл</a>
+<h4>Ваши подключения</h4>
+<p>Список подключений</p>
+{% for object, csv in connections %}
+    <li><strong>object.name =</strong> {{ object.name }}; <strong>csv.file =</strong> {{ csv.file }}; <strong>object.datetime =</strong> {{ object.datetime }};</li>
+{% endfor %}
+{% endblock %}

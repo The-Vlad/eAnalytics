@@ -1,0 +1,14 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Датасеты{% endblock %}
+
+{% block content %}
+<h2>Управление датасетами</h2>
+{% if user.first_name %}
+<p>{{ user.first_name }}, здесь представлен список ваших датасетов.</p>
+{% else %} 
+<p>Здесь представлен список ваших датасетов.</p>
+{% endif %}
+<h4>Датасеты</h4>
+<a href="{% url 'main:tools' tool='dataset' %}">Датасет первый тестовый (в разработке)</a>
+{% endblock %}

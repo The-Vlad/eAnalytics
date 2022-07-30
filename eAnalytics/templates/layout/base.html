@@ -8,9 +8,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>{% block title %}Главная{% endblock %} - Аналитический сайт</title>
+    <!-- Bootstrap CSS -->
     {% bootstrap_css %}
+
+    <!-- Custom css & js -->
     <link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+    <scirpt src="{% static 'csv/script.js' %}" defer></scirpt>
+    
+    <!-- Привязываем файлы веб-сценариев с программным кодом Bootstrap вместе
+    с сокращённой редакцией библиотеки jQuery, без которой не заработает раскрывающееся меню -->
     {% bootstrap_javascript jquery='slim' %} 
+
+    {% block head %}{% endblock %}
 </head>
 <body class="container-fluid">
     <header class="mb-4">
@@ -40,8 +49,8 @@
         <nav class="col-md-auto nav flex-column border">
             <a class="nav-link root" href="{% url 'main:index' %}">Главная</a>
             <span class="nav-link root font-weight-bold">Инструменты</span>
-            <a class="nav-link" href="#">Подключения (в разработке)</a>
-            <a class="nav-link" href="#">Датасеты</a>
+            <a class="nav-link" href="{% url 'main:tools' tool='connections' %}">Подключения (в разработке)</a>
+            <a class="nav-link" href="{% url 'main:tools' tool='datasets' %}">Датасеты</a>
             <a class="nav-link" href="#">Чарты</a>
             <a class="nav-link" href="#">Дашборды</a>            
             <a class="nav-link" href="{% url 'main:profile' %}">Мои публикации</a>
